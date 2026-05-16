@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agent Integrations — Never Miss Another Job</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0a1628;
+      --blue: #1e6fe8;
+      --blue-light: #3d8ef5;
+      --white: #ffffff;
+      --gray: #8a9bb0;
+      --gray-light: #f4f7fb;
+      --border: #1e2d45;
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--navy); color: var(--white); line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; border-bottom: 1px solid var(--border); }
+    .logo { font-size: 1.3rem; font-weight: 800; color: var(--white); }
+    .logo span { color: var(--blue); }
+    .nav-cta { background: var(--blue); color: white; padding: 10px 22px; border-radius: 6px; font-weight: 600; font-size: 0.9rem; transition: background 0.2s; }
+    .nav-cta:hover { background: var(--blue-light); }
+
+    /* HERO */
+    .hero { text-align: center; padding: 100px 5% 80px; max-width: 900px; margin: 0 auto; }
+    .hero-badge { display: inline-block; background: rgba(30,111,232,0.15); color: var(--blue-light); border: 1px solid rgba(30,111,232,0.3); padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 28px; }
+    .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900; line-height: 1.1; margin-bottom: 24px; }
+    .hero h1 span { color: var(--blue); }
+    .hero p { font-size: 1.2rem; color: var(--gray); max-width: 600px; margin: 0 auto 40px; }
+    .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: var(--blue); color: white; padding: 16px 36px; border-radius: 8px; font-weight: 700; font-size: 1rem; transition: background 0.2s, transform 0.1s; display: inline-block; }
+    .btn-primary:hover { background: var(--blue-light); transform: translateY(-1px); }
+    .btn-secondary { background: transparent; color: white; padding: 16px 36px; border-radius: 8px; font-weight: 600; font-size: 1rem; border: 1px solid var(--border); transition: border-color 0.2s; display: inline-block; }
+    .btn-secondary:hover { border-color: var(--blue); }
+
+    /* STATS */
+    .stats { display: flex; justify-content: center; gap: 60px; padding: 50px 5%; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat-num { font-size: 2.5rem; font-weight: 900; color: var(--blue); }
+    .stat-label { font-size: 0.9rem; color: var(--gray); margin-top: 4px; }
+
+    /* SECTION */
+    section { padding: 80px 5%; max-width: 1100px; margin: 0 auto; }
+    .section-label { color: var(--blue); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; margin-bottom: 16px; }
+    .section-sub { color: var(--gray); font-size: 1.1rem; max-width: 600px; margin-bottom: 50px; }
+
+    /* PROBLEM */
+    .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .problem-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 12px; padding: 32px; }
+    .problem-icon { font-size: 2rem; margin-bottom: 16px; }
+    .problem-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+    .problem-card p { color: var(--gray); font-size: 0.95rem; }
+
+    /* HOW IT WORKS */
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 32px; }
+    .step { position: relative; padding-left: 60px; }
+    .step-num { position: absolute; left: 0; top: 0; width: 42px; height: 42px; background: var(--blue); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem; }
+    .step h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .step p { color: var(--gray); font-size: 0.95rem; }
+
+    /* SERVICES */
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .service-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 12px; padding: 36px; transition: border-color 0.2s; }
+    .service-card:hover { border-color: var(--blue); }
+    .service-card.featured { background: rgba(30,111,232,0.08); border-color: var(--blue); }
+    .service-tag { display: inline-block; background: rgba(30,111,232,0.15); color: var(--blue-light); padding: 4px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; margin-bottom: 16px; }
+    .service-card h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 8px; }
+    .service-price { font-size: 1.8rem; font-weight: 900; color: var(--blue); margin-bottom: 4px; }
+    .service-price span { font-size: 1rem; color: var(--gray); font-weight: 400; }
+    .service-desc { color: var(--gray); font-size: 0.95rem; margin-bottom: 20px; }
+    .service-features { list-style: none; }
+    .service-features li { padding: 6px 0; font-size: 0.95rem; color: var(--gray); border-bottom: 1px solid var(--border); }
+    .service-features li:last-child { border-bottom: none; }
+    .service-features li::before { content: "✓ "; color: var(--blue); font-weight: 700; }
+
+    /* CTA */
+    .cta-section { text-align: center; background: rgba(30,111,232,0.08); border: 1px solid rgba(30,111,232,0.2); border-radius: 20px; padding: 80px 40px; margin: 0 5% 80px; }
+    .cta-section h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; margin-bottom: 16px; }
+    .cta-section p { color: var(--gray); font-size: 1.1rem; margin-bottom: 36px; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 30px 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    footer p { color: var(--gray); font-size: 0.9rem; }
+
+    @media (max-width: 600px) {
+      .stats { gap: 32px; }
+      .hero { padding: 60px 5% 50px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Agent<span>Integrations</span>.ai</div>
+    <a href="https://calendly.com/agentintegrations" class="nav-cta">Book a Free Demo</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">🤖 AI Agents for Home Service Businesses</div>
+    <h1>Never Miss <span>Another Job</span></h1>
+    <p>We build AI agent systems that answer your calls, book your appointments, and follow up with leads — 24/7. No hiring. No training. Just results.</p>
+    <div class="hero-btns">
+      <a href="https://calendly.com/agentintegrations" class="btn-primary">Book a Free Demo</a>
+      <a href="#how-it-works" class="btn-secondary">See How It Works</a>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">Always Answering</div></div>
+    <div class="stat"><div class="stat-num">$0</div><div class="stat-label">Per Missed Call</div></div>
+    <div class="stat"><div class="stat-num">30s</div><div class="stat-label">Average Response Time</div></div>
+    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Calls Answered</div></div>
+  </div>
+
+  <!-- PROBLEM -->
+  <section>
+    <div class="section-label">The Problem</div>
+    <h2 class="section-title">You're losing jobs you don't even know about</h2>
+    <p class="section-sub">Every missed call is a job that went to your competitor. It happens every day.</p>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-icon">📞</div>
+        <h3>You're on a job when your phone rings</h3>
+        <p>No one picks up. That customer calls the next guy on Google. You never even knew they called.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">🔁</div>
+        <h3>Leads go cold with no follow-up</h3>
+        <p>You're too busy to chase every lead. Without a system, most of them disappear — permanently.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">💸</div>
+        <h3>Marketing spend with no results</h3>
+        <p>You pay for ads that send calls you can't answer. Every unanswered call is money thrown away.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUTION -->
+  <section id="how-it-works">
+    <div class="section-label">The Solution</div>
+    <h2 class="section-title">We install an AI operations team into your business</h2>
+    <p class="section-sub">They answer every call, book every appointment, and keep your pipeline full — while you focus on the work.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>We build your AI agent</h3>
+        <p>Custom-built for your business. Knows your services, your schedule, your pricing. Sounds like a real person.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>It answers every call instantly</h3>
+        <p>24 hours a day, 7 days a week. Books appointments directly into your calendar. Never puts anyone on hold.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>You show up and do the work</h3>
+        <p>Your calendar fills up automatically. No missed calls. No lost leads. You just show up and get paid.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section>
+    <div class="section-label">What We Build</div>
+    <h2 class="section-title">Pick the right setup for your business</h2>
+    <p class="section-sub">Every package is custom-built. Pricing is based on your specific needs.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-tag">Entry</div>
+        <h3>AI Receptionist</h3>
+        <div class="service-price">$1,000<span>/mo</span></div>
+        <p class="service-desc">Perfect for solo operators and small shops who need calls answered 24/7.</p>
+        <ul class="service-features">
+          <li>24/7 AI voice receptionist</li>
+          <li>Automated appointment booking</li>
+          <li>Lead capture & notifications</li>
+          <li>Up to 1,500 calls/month</li>
+          <li>Basic reporting</li>
+        </ul>
+      </div>
+      <div class="service-card featured">
+        <div class="service-tag">Most Popular</div>
+        <h3>AI Operations</h3>
+        <div class="service-price">Custom<span> pricing</span></div>
+        <p class="service-desc">Full AI team handling calls, follow-ups, scheduling, and CRM — for growing businesses.</p>
+        <ul class="service-features">
+          <li>Everything in Receptionist</li>
+          <li>CRM integration (GHL)</li>
+          <li>Automated follow-up sequences</li>
+          <li>SMS reminders & confirmations</li>
+          <li>Bi-weekly strategy reviews</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-tag">Premium</div>
+        <h3>Full AI Agency</h3>
+        <div class="service-price">$5,000+<span>/mo</span></div>
+        <p class="service-desc">Your own AI-powered operations team. Built, managed, and upgraded continuously.</p>
+        <ul class="service-features">
+          <li>Custom AI agent team</li>
+          <li>Unlimited calls & automations</li>
+          <li>Multi-location support</li>
+          <li>Dedicated account manager</li>
+          <li>Monthly strategy sessions</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>Ready to stop losing jobs to missed calls?</h2>
+    <p>Book a free 30-minute demo. We'll show you exactly how it works for your business — no fluff, no pressure.</p>
+    <a href="https://calendly.com/agentintegrations" class="btn-primary">Book Your Free Demo →</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="logo">Agent<span>Integrations</span>.ai</div>
+    <p>© 2026 Agent Integrations. All rights reserved.</p>
+    <p>Jupiter, Florida | kyle@agentintegrations.ai</p>
+  </footer>
+
+</body>
+</html>
